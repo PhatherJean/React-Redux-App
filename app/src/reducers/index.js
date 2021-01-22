@@ -7,28 +7,18 @@ const initialState = {
       error: "",
     },
   ],
-  dbz: [
-    {
-      title: "",
-      episodes: "",
-      image_url: "",
-      rated: "",
-      start_date: "",
-      end_date: "",
-      synopsis: "",
-    },
-  ],
+  jokes: {
+    category: "",
+    type: "",
+    joke: "",
+    setup: "",
+    delivery: "",
+  },
+  id: "",
 };
 
 export const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case FETCH_DATA_START:
-      return {
-        ...state.data,
-        fetch: true,
-        error: "",
-      };
-
     default:
       return state;
   }

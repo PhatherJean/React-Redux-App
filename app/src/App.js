@@ -1,33 +1,36 @@
 import { connect } from "react-redux";
 import "./App.css";
-import { reducer } from "./reducers";
 
-const initialState = {
-  dbz: {
-    title: "Seikoku no Dragonar",
-    episodes: 13,
-    image_url:
-      "https://cdn.myanimelist.net/images/anime/13/56419.jpg?s=3b263990a49e0de6238033736192dffd",
-    synopsis:
-      'Learning to ride and tame dragons comes easy to most students at Ansarivan Dragonar Academy—except for first-year sh Blake, who is known by his fellow classmates as the "number one problem "',
-  },
-};
-console.log(initialState);
 const App = (props) => {
+  console.log(props);
   return (
-    <div className="App">
-      <h1> Dragonball Saga </h1>
-      <div className="dragon">
-        <h2>{initialState.dbz.title}</h2>
-        <img src={initialState.dbz.image_url} alt={initialState.dbz.title} />
-        <p className="bio">{initialState.dbz.synopsis}</p>
-      </div>
+    <div>
+      <h1> Grown Folk Jokes </h1>
+      <section className="box box1">
+        <p>
+          {props.jokes.joke}
+          {props.jokes.setup}
+        </p>
+      </section>
+      <section className="box box2">
+        <p>{props.jokes.delivery}</p>
+      </section>
     </div>
   );
 };
 const mapStateToProps = (state) => {
   return {
-    title: state.title,
+    jokes: {
+      error: state.jokes.error,
+      category: state.jokes.category,
+      type: state.jokes.type,
+      joke: state.jokes.joke,
+      setup: state.jokes.setup,
+      delivery: state.jokes.delivery,
+      id: "",
+      safe: state.safe,
+      lang: "",
+    },
   };
 };
 export default connect(mapStateToProps)(App);

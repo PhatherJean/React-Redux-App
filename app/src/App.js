@@ -1,8 +1,8 @@
 import { connect } from "react-redux";
 import "./App.css";
+import { getJokes } from "./action";
 
 const App = (props) => {
-  console.log(props);
   return (
     <div>
       <h1> Grown Folk Jokes </h1>
@@ -15,9 +15,11 @@ const App = (props) => {
       <section className="box box2">
         <p>{props.jokes.delivery}</p>
       </section>
+      <button onClick={props.getJokes}>Get Joke</button>
     </div>
   );
 };
+
 const mapStateToProps = (state) => {
   return {
     jokes: {
@@ -33,4 +35,4 @@ const mapStateToProps = (state) => {
     },
   };
 };
-export default connect(mapStateToProps)(App);
+export default connect(mapStateToProps, { getJokes })(App);

@@ -1,24 +1,38 @@
-import { FETCH_DATA_START } from "../action";
+import {
+  FETCH_DATA_SUCCESS,
+  FETCH_DATA_FAIL,
+  FETCH_DATA_START,
+} from "../action";
 
 const initialState = {
-  data: [
-    {
-      fetch: false,
-      error: "",
-    },
-  ],
   jokes: {
+    id: "",
     category: "",
     type: "",
     joke: "",
     setup: "",
     delivery: "",
   },
-  id: "",
+  fetch: false,
+  error: false,
 };
 
 export const reducer = (state = initialState, action) => {
   switch (action.type) {
+    case FETCH_DATA_START:
+      return {
+        ...state,
+        fetch: true,
+      };
+    case FETCH_DATA_SUCCESS:
+      return {
+        ...state,
+        error: "",
+        fetch: false,
+        jokes: action.payload,
+      };
+    case FETCH_DATA_FAIL:
+      return {};
     default:
       return state;
   }

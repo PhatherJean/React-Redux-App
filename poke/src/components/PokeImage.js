@@ -13,7 +13,7 @@ const PokeImage = (props) => {
 
   return (
     <div className="pokewrap">
-      <h3>{props.poke.name}</h3>
+      <h3>{props.poke.name.toUpperCase()}</h3>
       <img src={image.front_default} alt={props.poke.name} />
     </div>
   );

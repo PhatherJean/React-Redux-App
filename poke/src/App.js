@@ -1,23 +1,30 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 
 import "./App.css";
-import axios from "axios";
-import PokeImage from "./components/PokeImage";
 
-function App() {
-  const [pokeData, setPokeData] = useState([]);
+import PokeImage from "./components/PokeImage";
+import { getPokemon } from "./action";
+import { connect } from "react-redux";
+
+function App(props) {
+  console.log(props);
 
   useEffect(() => {
-    axios
-      .get("https://pokeapi.co/api/v2/pokemon?limit=9&offset=0")
-      .then((res) => setPokeData(res.data.results))
-      .catch((err) => console.log(err));
+    getPokemon();
   }, []);
 
+  if (props.error) {
+    return <h3>Oooohhhh Man so close to but : {props.error}</h3>;
+  }
+
+  if (props.isLoading) {
+    return <h2>Loading the Pokedex ..... </h2>;
+  }
   return (
     <div className="App">
+      <button onClick={() => props.getPokemon()}>My Pokemon </button>;
       <div className="poke-container">
-        {pokeData.map((poke) => (
+        {props.pokemon.map((poke) => (
           <PokeImage key={poke.id} poke={poke} />
         ))}
       </div>
@@ -25,4 +32,12 @@ function App() {
   );
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return {
+    pokemon: state.pokemon,
+    isLoading: state.isLoading,
+    error: state.error,
+  };
+};
+
+export default connect(mapStateToProps, { getPokemon })(App);
